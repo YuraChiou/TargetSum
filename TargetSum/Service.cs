@@ -13,39 +13,44 @@ namespace TargetSum
         /// <param name="data">An array of integers nums</param>
         /// <param name="target">An integer target</param>
         /// <returns>Return indices of the two numbers such that they add up to target.</returns>
-        public void TargetSum(List<int> data, int target)
+        public int[] TargetSum(int[] data, int target)
         {
+            int[] result = null;
+
             try
             {
-
                 // Input: List<int> data = new List<int> { 1, 2, 3, 4, 5, 6 };
                 // Target: int target = 10;
                 // Output: [3, 5]
                 Console.WriteLine($"Input: { string.Join(", ", data) }");
                 Console.WriteLine($"Target: { target }");
 
-                Dictionary<int, int> output = new Dictionary<int, int>();
-                Dictionary<int, int> dataDictionary = data.ToDictionary(x => x);
+                Dictionary<int, int> dataDictionary = new Dictionary<int, int>(); // data.ToDictionary(x => x);
 
-                for (int i = 0; i < data.Count(); i++)
+                for (int i = 0; i < data.Length; i++)
                 {
                     int augend = target - data[i];
 
                     if (dataDictionary.ContainsValue(augend))
                     {
                         int indexOfAugend = Array.IndexOf(dataDictionary.Values.ToArray(), augend);
-                        output.Add(i, indexOfAugend);
-
-                        break;
+                        if (indexOfAugend != i)
+                        {
+                            result = new int[] { indexOfAugend, i };
+                            Console.WriteLine($"Output: [{ string.Join(',', result) }]");
+                            break;
+                        }
                     }
-                }
 
-                Console.WriteLine($"Output: [{ output.First().Key }, { output.First().Value }]");
+                    dataDictionary.Add(i, data[i]);
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception {0}.", ex.Message);
             }
+
+            return result;
         }
     }
 }

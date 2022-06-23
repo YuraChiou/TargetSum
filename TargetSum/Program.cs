@@ -13,7 +13,6 @@ namespace TargetSum
 
             try
             {
-                List<int> data = new List<int>();
                 int target = 0;
                 string input = null;
 
@@ -27,12 +26,12 @@ namespace TargetSum
 
                     if (inputArray.Length == 2)
                     {
-                        data = inputArray[0].Split(',')
+                        int[] data = inputArray[0].Split(',')
                             ?.Select(x =>
                             {
                                 int.TryParse(x, out int interge);
                                 return interge;
-                            })?.ToList();
+                            })?.ToArray();
 
                         int.TryParse(inputArray[1], out target);
 
